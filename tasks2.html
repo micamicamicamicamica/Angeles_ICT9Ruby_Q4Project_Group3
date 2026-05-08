@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Virtual Notebooks</title>
+    <title>Submissions</title>
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 <style>
@@ -343,7 +343,6 @@ body.dark .switch::before{
 }
 
 .virtual-nbs {
-    margin-top: 50px;
     display: grid;
     grid-template-columns: repeat(auto-fit, 250px); 
     gap: 30px; 
@@ -363,7 +362,6 @@ body.dark .switch::before{
     height: 350 px;
     aspect-ratio: 5/6;
     flex-shrink: 0;
-    cursor: pointer;
 }
 
 .notebook img{
@@ -373,10 +371,9 @@ body.dark .switch::before{
     justify-content: center;
 }
 
-.ONLINECLASSES{
+.activitiesheader{
     height: 70px;
     background-color: var(--sidebar-color);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     margin-left: 250px;
     transition: var(--tran-05);
     position: sticky;
@@ -386,6 +383,8 @@ body.dark .switch::before{
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
 }
 
 .line{
@@ -411,12 +410,71 @@ body.dark .switch::before{
     top: 22px;
 }
 
+
 .centereditems{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
+
+.activitiesbuttons{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 35px;
+    background-color: rgba(0, 0, 0, 0);
+    font-weight: 500;
+    height: 110px;
+    margin-left: 250px;
+    gap: 20px;
+    }
+
+.activitiesbutton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--sidebar-color);
+    width: 120px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    height: 40px;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.submissionsbutton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--pageheader-color);
+    width: 120px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    height: 40px;
+    color: var(--body-color);
+    cursor: pointer;
+}
+
+.calendarbutton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--sidebar-color);
+    width: 120px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    height: 40px;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.activitiesbutton:hover, .calendarbutton:hover{
+    background-color: var(--pageheader-color);
+    color: var(--body-color);
+    transition: var(--tran-05);
+}
+
 .footer {
     background-color: var(--primary-color);
     color: white;
@@ -426,6 +484,7 @@ body.dark .switch::before{
     transition: var(--tran-03);
     margin-left: 250px;
 }
+
 
 .footer a {
     color: #fff;
@@ -533,107 +592,81 @@ body.dark .footer a {
         </div>
     </nav>
 
-    <div class="ONLINECLASSES">
+    <div class="activitiesheader">
         <div class="centereditems"></div>
-            <p class="pageheader">Virtual Notebooks</p>
+            <p class="pageheader">Submissions</p>
             <div class="linethingy">
                 <hr class="line">
             </div>
         </div>
     </div>
 
+    <div class="activitiesbuttons">
+        <div class="activitiesbutton">
+            <p><a href="tasks.html" style="color: inherit; text-decoration: none;">Activities</a></p>
+        </div>
+        <div class="submissionsbutton">
+            <p><a href="tasks2.html" style="color: inherit; text-decoration: none;"></a>Submissions</a></p>
+        </div>
+        <div class="calendarbutton">
+            <p><a href="calendar.html" style="color: inherit; text-decoration: none;">Calendar</a></p>
+        </div>
+    </div>
+
     <div class="virtual-nbs">
-        <div class="notebook">
-            <img src="eng.png">
-            <p style="color: var(--text-color); font-weight: 500; margin-left: 10px;">English AY 2526</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 65px; font-size: 10px;">2025-2026</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 0px; font-size: 10px;">——</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 0px; font-size: 10px;">ROGELIO JR ALEGRID</p>
-        </div>
-        <div class="notebook">
-            <img src="fil.png">
-            <p style="color: var(--text-color); font-weight: 500; margin-left: 10px;">Filipino AY 2526</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 65px; font-size: 10px;">2025-2026</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 0px; font-size: 10px;">——</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 0px; font-size: 10px;">WINMHAR SALAZAR</p>
-        </div>
-        <div class="notebook">
-            <img src="hr.png">
-            <p style="color: var(--text-color); font-weight: 500; margin-left: 10px;">Homeroom AY 2526</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 65px; font-size: 10px;">2025-2026</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 0px; font-size: 10px;">——</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 0px; font-size: 10px;">SEAN PATRICK MERCADO</p>
-        </div>
-        <div class="notebook">
-            <img src="ict.png">
-            <p style="color: var(--text-color); font-weight: 500; margin-left: 10px;">ICT AY 2526</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 65px; font-size: 10px;">2025-2026</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 0px; font-size: 10px;">——</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 0px; font-size: 10px;">LUISITO BALAJADIA</p>
-        </div>
-        <div class="notebook">
-            <img src="lop.png">
-            <p style="color: var(--text-color); font-weight: 500; margin-left: 10px;">LT/LOP AY 2526</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 65px; font-size: 10px;">2025-2026</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 0px; font-size: 10px;">——</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 0px; font-size: 10px;">RANDY SANTOS</p>
-        </div>
-        <div class="notebook">
-            <img src="math.png">
-            <p style="color: var(--text-color); font-weight: 500; margin-left: 10px;">Mathematics AY 2526</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 65px; font-size: 10px;">2025-2026</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 0px; font-size: 10px;">——</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 0px; font-size: 10px;">ANGELINA CRISTOBAL</p>
-        </div>
         <div class="notebook">
             <img src="music.png">
             <p style="color: var(--text-color); font-weight: 500; margin-left: 10px;">Music & Arts AY 2526</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 65px; font-size: 10px;">2025-2026</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 0px; font-size: 10px;">——</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 0px; font-size: 10px;">AMELIA AGUIRRE</p>
+            <div style="display: flex; justify-content: flex-end;">
+                <p style="color: #2dcb71; font-weight: 500; margin-left: 25px; font-size: 12px; margin-right: 10px;">0d left</p>
+            </div>
+            <div style="display: flex;">
+                <p style="color: var(--text-color); font-weight: 500; margin-left: 10px; font-size: 10px; margin-top: 3px;">Deadline:</p>
+                <p style="color: var(--text-color); font-weight: 200; margin-left: 5px; font-size: 10px; margin-top: 3px;">May 8, 2026 5:00 PM</p>
+            </div>
+            <div style="display: flex; justify-content: center;">
+                <p style="color: var(--pageheader-color); font-weight: 500; font-size: 12px; margin-top: 54px; cursor: pointer;">Submit File</p>
+            </div>
         </div>
+
         <div class="notebook">
-            <img src="pe.png">
-            <p style="color: var(--text-color); font-weight: 500; margin-left: 10px;">PEH AY 2526</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 65px; font-size: 10px;">2025-2026</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 0px; font-size: 10px;">——</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 0px; font-size: 10px;">MARK JOSEPH LAYUG</p>
+            <img src="ict.png">
+            <p style="color: var(--text-color); font-weight: 500; margin-left: 10px;">ICT AY 2526</p>
+            <div style="display: flex; justify-content: flex-end;">
+                <p style="color: #2dcb71; font-weight: 500; margin-left: 25px; font-size: 12px; margin-right: 10px;">0d left</p>
+            </div>
+            <div style="display: flex;">
+                <p style="color: var(--text-color); font-weight: 500; margin-left: 10px; font-size: 10px; margin-top: 3px;">Deadline:</p>
+                <p style="color: var(--text-color); font-weight: 200; margin-left: 5px; font-size: 10px; margin-top: 3px;">May 8, 2026 5:00 PM</p>
+            </div>
+            <div style="display: flex; justify-content: center;">
+                <p style="color: var(--pageheader-color); font-weight: 500; font-size: 12px; margin-top: 54px; cursor: pointer;">Submit File</p>
+            </div>
         </div>
+
         <div class="notebook">
-            <img src="sci.png">
-            <p style="color: var(--text-color); font-weight: 500; margin-left: 10px;">Science AY 2526</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 65px; font-size: 10px;">2025-2026</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 0px; font-size: 10px;">——</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 0px; font-size: 10px;">AILENE GALANG</p>
-        </div>
-        <div class="notebook">
-            <img src="ss.png">
-            <p style="color: var(--text-color); font-weight: 500; margin-left: 10px;">Social Studies AY 2526</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 65px; font-size: 10px;">2025-2026</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 0px; font-size: 10px;">——</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 0px; font-size: 10px;">RUEL ROQUE</p>
-        </div>
-        <div class="notebook">
-            <img src="tle.png">
-            <p style="color: var(--text-color); font-weight: 500; margin-left: 10px;">TLE AY 2526</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 65px; font-size: 10px;">2025-2026</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 0px; font-size: 10px;">——</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 0px; font-size: 10px;">ROSELLE SARMIENTO</p>
-        </div>
-        <div class="notebook">
-            <img src="ve.png">
-            <p style="color: var(--text-color); font-weight: 500; margin-left: 10px;">Values Education AY 2526</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 65px; font-size: 10px;">2025-2026</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 0px; font-size: 10px;">——</p>
-            <p style="color: var(--text-color); font-weight: 200; margin-left: 10px; margin-top: 0px; font-size: 10px;">SEAN PATRICK MERCADO</p>
+            <img src="fil.png">
+            <p style="color: var(--text-color); font-weight: 500; margin-left: 10px;">Filipino AY 2526</p>
+            <div style="display: flex; justify-content: flex-end;">
+                <p style="color: #2dcb71; font-weight: 500; margin-left: 25px; font-size: 12px; margin-right: 10px;">3d left</p>
+            </div>
+            <div style="display: flex;">
+                <p style="color: var(--text-color); font-weight: 500; margin-left: 10px; font-size: 10px; margin-top: 3px;">Deadline:</p>
+                <p style="color: var(--text-color); font-weight: 200; margin-left: 5px; font-size: 10px; margin-top: 3px;">May 11, 2026 5:00 PM</p>
+            </div>
+            <div style="display: flex; justify-content: center;">
+                <p style="color: var(--pageheader-color); font-weight: 500; font-size: 12px; margin-top: 54px; cursor: pointer;">Submit File</p>
+            </div>
         </div>
     </div>
-<br>
+
+ <br> <br> <br> <br> <br> <br> <br>
 <footer class="footer">
     Mica Frigillana | Khloe Sunga | Zahra Urquico | Grade 9 - Ruby | Powered by <a href="https://github.com" target="_blank" style="color:#60A5FA; text-decoration:none;">
     GitHub
     </a>
-</footer>
+</footer>  
+
 <script>
     const body = document.querySelector("body");
     const sidebar = document.querySelector(".sidebar");
@@ -652,13 +685,15 @@ body.dark .footer a {
     sidebar.classList.toggle("close");
 
     if (sidebar.classList.contains("close")) {
-        document.querySelector(".virtual-nbs").style.marginLeft = "220px";
-        document.querySelector(".ONLINECLASSES").style.marginLeft = "88px";
+        document.querySelector(".virtual-nbs").style.marginLeft = "130px";
+        document.querySelector(".activitiesheader").style.marginLeft = "88px";
+        document.querySelector(".activitiesbuttons").style.marginLeft = "88px";
         document.querySelector(".footer").style.marginLeft = "88px";
     }
      else {
         document.querySelector(".virtual-nbs").style.marginLeft = "300px";
-        document.querySelector(".ONLINECLASSES").style.marginLeft = "250px";
+        document.querySelector(".activitiesheader").style.marginLeft = "250px";
+        document.querySelector(".activitiesbuttons").style.marginLeft = "250px";
         document.querySelector(".footer").style.marginLeft = "250px";
     }
     });

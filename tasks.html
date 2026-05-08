@@ -1,14 +1,12 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
-
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Activities</title>
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 <style>
-
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 *{
     font-family : 'Poppins', sans-serif;
@@ -25,7 +23,7 @@
     --toggle-color : #ddd;
     --text-color: #707070;
     --pageheader-color : #094c86;
-    --card-color: #ffffff;
+    ---color: #5b9bd5;
 
     --tran-02 : all 0.2s ease;
     --tran-03 : all 0.3s ease;
@@ -252,7 +250,6 @@ header .image-text .header-text{
     height: 50px;
 }
 
-/* light mode */
 .menu-bar .mode i.sun {
     opacity: 0;
 }
@@ -322,12 +319,6 @@ body.dark{
     --toggle-color: #fff;
     --text-color: #ccc;
     --pageheader-color : #ccc;
-    --card-color: #1f1f1f;
-}
-
-body.dark .profile-left,
-body.dark .profile-right{
-    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 body.dark .bx-moon{
@@ -352,10 +343,37 @@ body.dark .switch::before{
     left: 24px;
 }
 
-.profilebox{
+.virtual-nbs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 250px); 
+    gap: 30px; 
+    margin-left: 300px;
+    padding-bottom: 50px;
+    overflow-x: hidden;
+}
+
+.notebook{
+    background-color: var(--sidebar-color);
+    border-radius: 5px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    overflow-x: hidden;
+    overflow-y: hidden;
+    width: 200 px;
+    height: 350 px;
+    aspect-ratio: 5/6;
+    flex-shrink: 0;
+}
+
+.notebook img{
+    object-fit: cover;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.activitiesheader{
     height: 70px;
     background-color: var(--sidebar-color);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     margin-left: 250px;
     transition: var(--tran-05);
     position: sticky;
@@ -365,6 +383,8 @@ body.dark .switch::before{
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
 }
 
 .line{
@@ -390,6 +410,7 @@ body.dark .switch::before{
     top: 22px;
 }
 
+
 .centereditems{
     display: flex;
     flex-direction: column;
@@ -397,127 +418,64 @@ body.dark .switch::before{
     justify-content: center;
 }
 
-
-.main-content{
+.activitiesbuttons{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 35px;
+    background-color: rgba(0, 0, 0, 0);
+    font-weight: 500;
+    height: 110px;
     margin-left: 250px;
-    padding: 40px;
+    gap: 20px;
+    }
+
+.activitiesbutton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--pageheader-color);
+    width: 120px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    height: 40px;
+    color: var(--body-color);
+    cursor: pointer;
+}
+
+.submissionsbutton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--sidebar-color);
+    width: 120px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    height: 40px;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.submissionsbutton:hover, .calendarbutton:hover{
+    background-color: var(--pageheader-color);
+    color: var(--body-color);
     transition: var(--tran-05);
 }
 
-.sidebar.close ~ .main-content{
-    margin-left: 88px;
-}
 
-.sidebar.close ~ .profilebox{
-    margin-left: 88px;
-}
-
-.profile-container{
+.calendarbutton{
     display: flex;
-    gap: 30px;
-    flex-wrap: wrap;
-    align-items: stretch;
-}
-
-
-.profile-left{
-    flex: 0.8;
-    min-width: 260px;
-    background: var(--card-color);
-    border-radius: 20px;
-    padding: 35px 25px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-
-    display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    overflow-x: hidden;
-}
-
-
-.profile-right{
-    flex: 1.5;
-    min-width: 350px;
-    background: var(--card-color);
-    border-radius: 20px;
-    padding: 35px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-    overflow-x: hidden;
-}
-
-
-.profile-left img{
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 25px;
-    border: 5px solid #e8eef7;
-    overflow-x: hidden;
-}
-
-
-.upload-btn{
-    display: none;
-}
-
-.custom-upload{
-    background: var(--primary-color);
-    color: white;
-    padding: 12px 22px;
+    background-color: var(--sidebar-color);
+    width: 120px;
     border-radius: 10px;
-    cursor: pointer;
-    font-size: 15px;
-    transition: 0.3s;
-
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.custom-upload:hover{
-    background: #0b5fa5;
-}
-
-.custom-upload i{
-    font-size: 18px;
-}
-
-
-.info-box{
-    margin-bottom: 28px;
-}
-
-.info-title{
-    font-size: 14px;
-    color: gray;
-    margin-bottom: 6px;
-}
-
-.info-value{
-    font-size: 18px;
-    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    height: 40px;
     color: var(--text-color);
-}
-
-
-.change-btn{
-    width: 100%;
-    border: none;
-    padding: 14px;
-    border-radius: 12px;
-    background-color: var(--primary-color);
-    color: white;
-    font-size: 16px;
     cursor: pointer;
-    transition: 0.3s;
-    margin-top: 10px;
 }
 
-.change-btn:hover{
-    background: #0b5fa5;
-}
 .footer {
     background-color: var(--primary-color);
     color: white;
@@ -550,212 +508,149 @@ body.dark .footer a {
     color: var(--text-color);
 }
 
-@media(max-width:900px){
-
-    .profile-container{
-        flex-direction: column;
-    }
-
-    .main-content{
-        padding: 20px;
-    }
-}
 
 </style>
 </head>
-
 <body>
+    <nav class="sidebar">
+        <header>
+            <div class="image-text">
+                <span class="image">
+                    <img src="LOGO.png" alt="logo">
+                </span>
 
-
-<nav class="sidebar">
-
-    <header>
-        <div class="image-text">
-
-            <span class="image">
-                <img src="LOGO.png" alt="logo">
-            </span>
-
-            <div class="text header-text">
-                <span class="name">O.B. Montessori</span>
-                <span class="profession">Student Portal</span>
+                <div class="text header-text">
+                    <span class="name">O.B. Montessori</span>
+                    <span class="profession">Student Portal</span>
+                </div>
             </div>
-
-        </div>
-
-        <i class="bx bx-chevron-left toggle"></i>
-    </header>
-
-    <div class="menu-bar">
-
-        <div class="menu">
-
-            <div class="search-box">
-                <i class="bx bx-search"></i>
-                <input type="search" placeholder="Search...">
-            </div>
-
-            <ul class="menu-links">
-
-                <li class="nav-link">
-                    <a href="dashboard.html">
-                        <i class="bx bx-home-alt icon"></i>
-                        <span class="text nav-text">Dashboard</span>
-                    </a>
-                </li>
-
-                <li class="nav-link">
-                    <a href="profile.html">
-                        <i class="bx bx-user icon"></i>
-                        <span class="text nav-text">Profile</span>
-                    </a>
-                </li>
-
-                <li class="nav-link">
-                    <a href="notebooks.html">
-                        <i class="bx bx-book-open icon"></i>
-                        <span class="text nav-text">Virtual Notebooks</span>
-                    </a>
-                </li>
-
-                <li class="nav-link">
-                    <a href="tasks.html">
-                        <i class="bx bx-folder icon"></i>
-                        <span class="text nav-text">Activities</span>
-                    </a>
-                </li>
-
-                <li class="nav-link">
-                    <a href="calendar.html">
-                        <i class="bx bx-calendar-event icon"></i>
-                        <span class="text nav-text">Calendar</span>
-                    </a>
-                </li>
-
-                <li class="nav-link">
-                    <a href="">
-                        <i class="bx bx-trending-up icon"></i>
-                        <span class="text nav-text">Performance</span>
-                    </a>
-                </li>
-
-            </ul>
-        </div>
-
-        <div class="bottom-content">
-
-            <li class="nav-link">
-                <a href="index.html">
-                    <i class="bx bx-log-out icon"></i>
-                    <span class="text nav-text">Logout</span>
-                </a>
-            </li>
-
-            <li class="mode">
-
-                <div class="moon-sun">
-                    <i class="bx bx-moon icon moon"></i>
-                    <i class="bx bx-sun icon sun"></i>
+            <i class="bx bx-chevron-left toggle"></i>
+        </header>
+        <div class="menu-bar">
+            <div class="menu">
+                <div class="search-box">
+                    <i class="bx bx-search"></i>
+                    <input type="search" placeholder="Search...">
                 </div>
 
-                <span class="mode-text text">Dark Mode</span>
+                <ul class="menu-links">
+                    <li class="nav-link">
+                        <a href="dashboard.html">
+                            <i class="bx bx-home-alt icon"></i>
+                            <span class="text nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="profile.html">
+                            <i class="bx bx-user icon"></i>
+                            <span class="text nav-text">Profile</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="notebooks.html">
+                            <i class="bx bx-book-open icon"></i>
+                            <span class="text nav-text">Virtual Notebooks</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="tasks.html">
+                            <i class="bx bx-folder icon"></i>
+                            <span class="text nav-text">Activities</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="calendar.html">
+                            <i class="bx bx-calendar-event icon"></i>
+                            <span class="text nav-text">Calendar</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="">
+                            <i class="bx bx-trending-up icon"></i>
+                            <span class="text nav-text">Performance</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
-                <div class="toggle-switch">
-                    <span class="switch"></span>
-                </div>
-
-            </li>
-
+            <div class="bottom-content">
+                <li class="nav-link">
+                    <a href="index.html">
+                        <i class="bx bx-log-out icon"></i>
+                        <span class="text nav-text">Logout</span>
+                    </a>
+                </li>
+                <li class="mode">
+                    <div class="moon-sun">
+                        <i class="bx bx-moon icon moon"></i>
+                        <i class="bx bx-sun icon sun"></i>
+                    </div>
+                    <span class="mode-text text">Dark Mode</span>
+                    <div class="toggle-switch">
+                        <span class="switch"></span>
+                    </div>
+                </li>
+            </div>
         </div>
+    </nav>
 
-    </div>
-
-</nav>
-
-
-<div class="profilebox">
-    <div class="centereditems"></div>
-            <p class="pageheader">Student Profile</p>
+    <div class="activitiesheader">
+        <div class="centereditems"></div>
+            <p class="pageheader">Activities</p>
             <div class="linethingy">
                 <hr class="line">
             </div>
         </div>
-</div>
-
-
-<section class="main-content">
-
-    <div class="profile-container">
-
-
-        <div class="profile-left">
-
-            <img id="profilePreview"
-            src="prof.png">
-
-            <label for="uploadImage" class="custom-upload">
-                <i class='bx bx-upload'></i>
-                Choose Profile
-            </label>
-
-            <input type="file" id="uploadImage" class="upload-btn">
-
-        </div>
-
-
-        <div class="profile-right">
-
-            <div class="info-box">
-                <div class="info-title">Student Number</div>
-                <div class="info-value">697141204</div>
-            </div>
-
-            <div class="info-box">
-                <div class="info-title">Contact Number</div>
-                <div class="info-value">+63 917 482 1935</div>
-            </div>
-
-            <div class="info-box">
-                <div class="info-title">Email Address</div>
-                <div class="info-value">sample@schoolname.edu.ph</div>
-            </div>
-
-            <div class="info-box">
-                <div class="info-title">Gender</div>
-                <div class="info-value">Female</div>
-            </div>
-
-            <div class="info-box">
-                <div class="info-title">Password</div>
-                <div class="info-value">***********</div>
-            </div>
-
-            <button class="change-btn">
-                Change Password
-            </button>
-
-        </div>
-
     </div>
 
-</section>
-<br>
+    <div class="activitiesbuttons">
+        <div class="activitiesbutton">
+            <p><a href="tasks.html" style="color: inherit; text-decoration: none;">Activities</a></p>
+        </div>
+        <div class="submissionsbutton">
+            <p><a href="tasks2.html" style="color: inherit; text-decoration: none;">Submissions</a></p>
+        </div>
+        <div class="calendarbutton">
+            <p><a href="calendar.html" style="color: inherit; text-decoration: none;">Calendar</a></p>
+        </div>
+    </div>
+
+    <div class="virtual-nbs">
+        <div class="notebook">
+            <img src="lop.png">
+            <p style="color: var(--text-color); font-weight: 500; margin-left: 10px;">LOP/LT AY 2526</p>
+            <div style="display: flex;">
+                <p style="color: var(--text-color); font-weight: 500; margin-left: 10px; font-size: 12px;">8 Questions</p>
+                <p style="color: var(--text-color); font-weight: 500; margin-left: 25.5px; font-size: 12px;">1 hr 30 mins</p>
+                <p style="color: #2dcb71; font-weight: 500; margin-left: 25.5px; font-size: 12px;">2d left</p>
+            </div>
+            <div style="display: flex;">
+                <p style="color: var(--text-color); font-weight: 500; margin-left: 10px; font-size: 10px; margin-top: 3px;">Date Start:</p>
+                <p style="color: var(--text-color); font-weight: 200; margin-left: 5px; font-size: 10px; margin-top: 3px;">May 11, 2026 12:00 AM</p>
+            </div>
+            <div style="display: flex;">
+                <p style="color: var(--text-color); font-weight: 500; margin-left: 10px; font-size: 10px; margin-top: 3px;">Date End:</p>
+                <p style="color: var(--text-color); font-weight: 200; margin-left: 5px; font-size: 10px; margin-top: 3px;">May 19, 2026 11:59 PM</p>
+            </div>
+            <div style="display: flex; justify-content: center;">
+                <p style="color: var(--pageheader-color); font-weight: 500; font-size: 12px; margin-top: 35px; cursor: pointer;">Take Activity</p>
+            </div>
+        </div>
+    </div>
+
+<br> <br> <br> <br> <br> <br> <br>
 <footer class="footer">
     Mica Frigillana | Khloe Sunga | Zahra Urquico | Grade 9 - Ruby | Powered by <a href="https://github.com" target="_blank" style="color:#60A5FA; text-decoration:none;">
     GitHub
     </a>
 </footer>
 <script>
-
     const body = document.querySelector("body");
     const sidebar = document.querySelector(".sidebar");
     const toggle = document.querySelector(".toggle");
+    const searchBtn = document.querySelector(".bx-search");
     const modeSwitch = document.querySelector(".toggle-switch");
     const modeText = document.querySelector(".mode-text");
-    const profilebox = document.querySelector(".profilebox");
-    const mainContent = document.querySelector(".main-content");
-    const footer = document.querySelector("footer");
-
 
     // Apply saved dark mode on page load
     if (localStorage.getItem("darkMode") === "enabled") {
@@ -764,47 +659,32 @@ body.dark .footer a {
     }
 
     toggle.addEventListener("click", () => {
-        sidebar.classList.toggle("close");
-        const collapsed = sidebar.classList.contains("close");
-        const ml = collapsed ? "88px" : "250px";
-        profilebox.style.marginLeft = ml;
-        mainContent.style.marginLeft = ml;
-        footer.style.marginLeft = ml;
+    sidebar.classList.toggle("close");
+
+    if (sidebar.classList.contains("close")) {
+        document.querySelector(".virtual-nbs").style.marginLeft = "130px";
+        document.querySelector(".activitiesheader").style.marginLeft = "88px";
+        document.querySelector(".activitiesbuttons").style.marginLeft = "88px";
+        document.querySelector(".footer").style.marginLeft = "88px";
+    }
+     else {
+        document.querySelector(".virtual-nbs").style.marginLeft = "300px";
+        document.querySelector(".activitiesheader").style.marginLeft = "250px";
+        document.querySelector(".activitiesbuttons").style.marginLeft = "250px";
+        document.querySelector(".footer").style.marginLeft = "250px";
+    }
     });
 
     modeSwitch.addEventListener("click", () => {
         body.classList.toggle("dark");
+
         if (body.classList.contains("dark")) {
             modeText.innerText = "Light Mode";
-            localStorage.setItem("darkMode", "enabled");
         } else {
             modeText.innerText = "Dark Mode";
-            localStorage.setItem("darkMode", "disabled");
         }
     });
 
-
-const uploadImage = document.getElementById("uploadImage");
-const profilePreview = document.getElementById("profilePreview");
-
-uploadImage.addEventListener("change", function(){
-
-    const file = this.files[0];
-
-    if(file){
-
-        const reader = new FileReader();
-
-        reader.onload = function(e){
-            profilePreview.src = e.target.result;
-        }
-
-        reader.readAsDataURL(file);
-    }
-
-});
-
 </script>
-
 </body>
 </html>

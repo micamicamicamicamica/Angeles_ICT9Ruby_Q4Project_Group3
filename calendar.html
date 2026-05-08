@@ -1,420 +1,645 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendar</title>
-<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    * {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+        :root {
+            --body-color: #f0f2f5;
+            --sidebar-color: #fff;
+            --primary-color: #094c86;
+            --primary-color-light: #f6f5ff;
+            --toggle-color: #ddd;
+            --text-color: #707070;
+            --pageheader-color: #094c86;
+            --card-bg: #fff;
+            --accent-color: #9b1d55;
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-*{
-    font-family : 'Poppins', sans-serif;
-    margin : 0;
-    padding: 0%;
-    box-sizing: border-box;
-}
+            --tran-02: all 0.2s ease;
+            --tran-03: all 0.3s ease;
+            --tran-04: all 0.4s ease;
+            --tran-05: all 0.5s ease;
 
-:root{
-    --body-color : #fff;
-    --sidebar-color : #fff;
-    --primary-color : #094c86;
-    --primary-color-light : #f6f5ff;
-    --toggle-color : #ddd;
-    --text-color: #707070;
-    --pageheader-color : #094c86;
+            --sidebar-width: 250px;
+            --sidebar-collapsed: 88px;
+        }
 
-    --tran-02 : all 0.2s ease;
-    --tran-03 : all 0.3s ease;
-    --tran-04 : all 0.4s ease;
-    --tran-05 : all 0.5s ease;
-}
-body{
-    height: 100vh;
-    background-color: var(--body-color);
+        body {
+            height: 100vh;
+            background-color: var(--body-color);
+            overflow-x: hidden;
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar .text {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .sidebar header { position: relative; }
+
+        .sidebar .image {
+            min-width: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: var(--sidebar-width);
+            background-color: var(--sidebar-color);
+            padding: 10px 14px;
+            transition: var(--tran-05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 2000;
+        }
+
+        .sidebar.close { width: var(--sidebar-collapsed); }
+
+        .sidebar.close .image {
+            min-width: 60px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .sidebar.close .image img { margin: 0 auto; }
+        .sidebar.close .text { display: none; }
+
+        .header-text {
+            white-space: nowrap;
+            overflow: hidden;
+            transition: var(--tran-04);
+        }
+
+        .sidebar.close .header-text {
+            transform: translateX(-20px);
+            opacity: 0;
+        }
+
+        .sidebar li .text,
+        .mode-text {
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .sidebar.close header .toggle { transform: translateY(-50%) rotate(180deg); }
+        .sidebar.close .search-box { display: none; }
+        .sidebar.close .mode-text { display: none; }
+
+        .sidebar .image-text img {
+            width: 40px;
+            border-radius: 6px;
+        }
+
+        .sidebar header .image-text {
+            display: flex;
+            align-items: center;
+        }
+
+        header .image-text .header-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-text .name { font-weight: 600; }
+        .header-text .profession { margin-top: -2px; }
+
+        .sidebar header .toggle {
+            position: absolute;
+            top: 50%;
+            right: -25px;
+            transform: translateY(-50%);
+            height: 25px;
+            width: 25px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: var(--sidebar-color);
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .sidebar .search-box {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            height: 45px;
+            border-radius: 8px;
+            padding: 0 10px;
+            background-color: var(--primary-color-light);
+        }
+
+        .search-box .bx-search {
+            font-size: 20px;
+            color: var(--text-color);
+            min-width: 40px;
+            cursor: pointer;
+        }
+
+        .search-box input {
+            font-size: 14px;
+            height: 100%;
+            width: 100%;
+            outline: none;
+            border: none;
+            background-color: var(--primary-color-light);
+        }
+
+        .sidebar li {
+            height: 50px;
+            margin-top: 10px;
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar li .icon {
+            font-size: 20px;
+            min-width: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: var(--tran-02);
+        }
+
+        .sidebar li .text {
+            color: var(--text-color);
+            transition: var(--tran-02);
+        }
+
+        .sidebar li a {
+            text-decoration: none;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            border-radius: 6px;
+            transition: var(--tran-04);
+        }
+
+        .sidebar li a:hover { background-color: var(--primary-color); }
+        .sidebar li a:hover .icon { color: var(--sidebar-color); transition: var(--tran-03); }
+        .sidebar li a:hover .text { color: var(--sidebar-color); transition: var(--tran-03); }
+
+        .sidebar .menu-bar {
+            height: calc(100% - 55px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-y: auto;
+            margin-top: 10px;
+        }
+
+        .bottom-content { list-style: none; }
+
+        .menu-bar .mode {
+            background: var(--primary-color-light);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            height: 50px;
+        }
+
+        .menu-bar .mode i.sun { opacity: 0; }
+        .menu-bar .mode i.moon { opacity: 1; }
+        body.dark .menu-bar .mode i.sun { opacity: 1; }
+        body.dark .menu-bar .mode i.moon { opacity: 0; }
+
+        .menu-bar .mode .toggle-switch {
+            display: flex;
+            height: 100%;
+            width: 60px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .toggle-switch .switch {
+            position: relative;
+            height: 22px;
+            border-radius: 25px;
+            width: 44px;
+            background: var(--toggle-color);
+        }
+
+        .switch::before {
+            content: '';
+            position: absolute;
+            height: 15px;
+            width: 15px;
+            border-radius: 50%;
+            background: var(--sidebar-color);
+            top: 50%;
+            left: 5px;
+            transform: translateY(-50%);
+            transition: var(--tran-03);
+        }
+
+        .menu-bar .mode .moon-sun {
+            height: 15px;
+            width: 15px;
+            display: flex;
+            align-items: center;
+            font-size: 20px;
+            color: var(--text-color);
+            min-width: 60px;
+        }
+
+        .menu-bar .mode i { position: absolute; }
+
+        body.dark {
+            --body-color: #18191a;
+            --sidebar-color: #242526;
+            --primary-color: #3a3b3c;
+            --primary-color-light: #3a3b3c;
+            --toggle-color: #fff;
+            --text-color: #ccc;
+            --pageheader-color: #ccc;
+            --card-bg: #242526;
+        }
+
+        body.dark .bx-moon { opacity: 0; }
+        body.dark .bx-sun { opacity: 1; }
+        .bx-sun { opacity: 0; }
+
+        body.dark .sidebar li a:hover .text,
+        body.dark .sidebar li a:hover .icon,
+        body.dark .sidebar header .toggle { color: var(--text-color); }
+
+        body.dark .switch::before { left: 24px; }
+
+        body.dark .student-id-card,
+        body.dark .ongoing-activities-card,
+        body.dark .publication-card { background-color: var(--card-bg); }
+
+        body.dark .publication-card { border-color: #3a3b3c; }
+
+        .DASHBOARDBOX {
+            height: 70px;
+            background-color: var(--sidebar-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            margin-left: var(--sidebar-width);
+            transition: var(--tran-05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .line {
+            width: 200px;
+            height: 4px;
+            background-color: var(--pageheader-color);
+            border: none;
+            border-radius: 5px;
+            position: absolute;
+            bottom: -2px;
+        }
+
+        .linethingy {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .pageheader {
+            font-weight: 600;
+            color: var(--pageheader-color);
+            position: absolute;
+            top: 22px;
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            transition: var(--tran-05);
+            min-height: calc(100vh - 70px);
+        }
+    .calendarbox {
+        height: 70px;
+        background-color: var(--sidebar-color);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        margin-left: 250px;
+        transition: var(--tran-05);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .pageheader {
+        font-weight: 600;
+        color: var(--pageheader-color);
+        position: absolute;
+        top: 22px;
+    }
+    .centereditems {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .calendar-wrapper {
+        display: flex;
+        justify-content: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    .calendar-card {
+        background: var(--card-bg);
+        border-radius: 16px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        padding: 32px; 
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    .cal-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+    .cal-nav-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--pageheader-color);
+    }
+    .cal-nav-btns {
+        display: flex;
+        gap: 8px;
+    }
+    .cal-nav-btn {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        border: none;
+        background: var(--primary-color-light);
+        color: var(--primary-color);
+        font-size: 18px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--tran-02);
+    }
+    body.dark .cal-nav-btn {
+        color: var(--text-color);
+    }
+    .cal-nav-btn:hover {
+        background: var(--primary-color);
+        color: #fff;
+    }
+    .today-btn {
+        background: var(--primary-color);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 6px 16px;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        margin-left: 8px;
+        transition: var(--tran-02);
+    }
+    .today-btn:hover {
+        background: #0a5ca8;
+    }
+    .cal-day-labels {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        margin-bottom: 6px;
+    }
+    .cal-day-label {
+        text-align: center;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-color);
+        padding: 6px 0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .cal-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 8px; 
+    }
+    .cal-day {
+        aspect-ratio: 1;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 3px; 
+        cursor: pointer;
+        position: relative;
+        transition: background 0.15s;
+        min-height: 90px; 
+        overflow: hidden;
+        background: transparent;
+    }
+    .cal-day:hover {
+        background: var(--primary-color-light);
+    }
+    .cal-day.other-month .day-num {
+        opacity: 0.3;
+    }
+    .cal-day.today .day-num {
+        background: var(--primary-color);
+        color: #fff;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .cal-day.selected {
+        background: var(--primary-color-light);
+        outline: 2px solid var(--primary-color);
+    }
+    .day-num {
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--text-color);
+        min-width: 32px;
+        text-align: center;
+        line-height: 32px;
+        flex-shrink: 0;
+    }
+    .sidebar.close .text,
+    .sidebar.close .header-text {
+        display: none !important;
+    }
+
+    .sidebar.close .image {
+        justify-content: center;
+    }
+
+    @media (max-width: 900px) {
+        .main-content {
+            margin-left: 0;
+            padding: 10px;
+        }
+        .calendarbox {
+            margin-left: 0;
+        }
+        .calendar-wrapper {
+            max-width: 100%;
+            padding: 0 5px;
+        }
+        .calendar-card {
+            padding: 10px;
+            max-width: 100%;
+        }
+        .cal-day {
+            min-height: 50px;
+            padding: 5px 1px;
+        }
+        .day-num {
+            font-size: 13px;
+            min-width: 24px;
+            line-height: 24px;
+        }
+    }
+
+    /* Footer */
+.footer {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px;
+    text-align: center;
     font-family: 'Poppins', sans-serif;
-}
-
-/* ===== reusable css ===== */
-.sidebar .text{
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--text-color)
-}
-
-.sidebar header{
-    position: relative;
-}
-
-.sidebar .image{
-    min-width: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* ===== sidebar ===== */
-.sidebar{
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 250px;
-    background-color: var(--sidebar-color);
-    padding: 10px 14px;
-    transition: var(--tran-05);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    z-index: 2000;
-}
-
-.sidebar.close{
-    width: 88px;
-}
-
-.sidebar.close .image {
-    min-width: 60px;
-    display: flex;
-    justify-content: center;
-}
-
-.sidebar.close .image img {
-    margin: 0 auto;
-}
-
-.sidebar.close .text{
-    display: none;
-}
-
-.header-text {
-    white-space: nowrap;
-    overflow: hidden;
-    transition: var(--tran-04);
-}
-
-.sidebar.close .header-text {
-    transform: translateX(-20px);
-    opacity: 0;
-}
-
-.sidebar li .text,
-.mode-text {
-    white-space: nowrap;
-    overflow: hidden;
-}
-.sidebar.close header .toggle{
-    transform: translateY(-50%) rotate(180deg);
-}
-
-.sidebar.close .search-box{
-    display: none;
-}
-
-.sidebar.close .mode-text{
-    display: none;
-}
-
-.sidebar .image-text img{
-    width: 40px;
-    border-radius: 6px;
-}
-
-.sidebar header .image-text{
-    display: flex;
-    align-items: center;
-}
-
-header .image-text .header-text{
-    display: flex;
-    flex-direction: column;
-}
-
-.header-text .name{
-    font-weight: 600;
-}
-
-.header-text .profession{
-    margin-top: -2px;
-}
-
-.sidebar header .toggle{
-    position: absolute;
-    top: 50%;
-    right: -25px;
-    transform: translateY(-50%);
-    height: 25px;
-    width: 25px;
-    background-color: var(--primary-color);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    color: var(--sidebar-color);
-    cursor: pointer;
-}
-
-/* ===== search box ===== */
-.sidebar .search-box{
-    display: flex;
-    align-items: center;
-    margin-top: 20px;
-    height: 45px;
-    border-radius: 8px;
-    padding: 0 10px;
-    background-color: var(--primary-color-light);
-}
-
-.search-box .bx-search{
-    font-size: 20px;
-    color: var(--text-color);
-    min-width: 40px;
-    cursor: pointer;
-}
-
-.search-box input{
-    font-size: 14px;
-    height: 100%;
-    width: 100%;
-    outline: none;
-    border: none;
-    background-color: var(--primary-color-light);
-}
-
-
-.sidebar li{
-    height: 50px;
-    margin-top: 10px;
-    list-style: none;
-    display: flex;
-    align-items: center;
-}
-
-.sidebar li .icon{
-    font-size: 20px;
-    min-width: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-color);
-    transition: var(--tran-02);
-}
-
-.sidebar li .text{
-    color: var(--text-color);
-    transition: var(--tran-02);
-}
-
-/* ===== nav links ===== */
-.sidebar li a{
-    text-decoration: none;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    border-radius: 6px;
-    transition: var(--tran-04);
-}
-
-.sidebar li a:hover{
-    background-color: var(--primary-color);
-}
-
-.sidebar li a:hover .icon{
-    color: var(--sidebar-color);
     transition: var(--tran-03);
-}
-
-.sidebar li a:hover .text{
-    color: var(--sidebar-color);
-    transition: var(--tran-03);
-}
-
-/* ===== menu bar ===== */
-.sidebar .menu-bar{
-    height: calc(100% - 55px);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    overflow-y: auto;
-    margin-top: 10px;
-}
-
-/* ===== bottom content ===== */
-.bottom-content{
-    list-style: none;
-}
-
-.menu-bar .mode{
-    background: var(--primary-color-light);
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    height: 50px;
-}
-
-/* light mode */
-.menu-bar .mode i.sun {
-    opacity: 0;
-}
-
-.menu-bar .mode i.moon {
-    opacity: 1;
-}
-
-/* dark mode */
-body.dark .menu-bar .mode i.sun {
-    opacity: 1;
-}
-
-body.dark .menu-bar .mode i.moon {
-    opacity: 0;
-}
-
-.menu-bar .mode .toggle-switch{
-    display: flex;
-    height: 100%;
-    width: 60px;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-
-.toggle-switch .switch{
-    position: relative;
-    height: 22px;
-    border-radius: 25px;
-    width: 44px;
-    background: var(--toggle-color);
-}
-
-.switch::before{
-    content: '';
-    position: absolute;
-    height: 15px;
-    width: 15px;
-    border-radius: 50%;
-    background: var(--sidebar-color);
-    top: 50%;
-    left: 5px;
-    transform: translateY(-50%);
-    transition: var(--tran-03);
-}
-
-.menu-bar .mode .moon-sun{
-    height: 15px;
-    width: 15px;
-    display: flex;
-    align-items: center;
-    font-size: 20px;
-    color: var(--text-color);
-    min-width: 60px;
-}
-
-.menu-bar .mode i{
-    position: absolute;
-}
-
-body.dark{
-    --body-color: #18191a;
-    --sidebar-color: #242526;
-    --primary-color: #3a3b3c;
-    --primary-color-light: #3a3b3c;
-    --toggle-color: #fff;
-    --text-color: #ccc;
-    --pageheader-color : #ccc;
-}
-
-body.dark .bx-moon{
-    opacity: 0;
-}
-
-body.dark .bx-sun{
-    opacity: 1;
-}
-
-.bx-sun{
-    opacity: 0;
-}
-
-body.dark .sidebar li a:hover .text,
-body.dark .sidebar li a:hover .icon,
-body.dark .sidebar header .toggle {
-    color: var(--text-color);
-}
-
-body.dark .switch::before{
-    left: 24px;
-}
-
-.calendarbox{
-    height: 70px;
-    background-color: var(--sidebar-color);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     margin-left: 250px;
-    transition: var(--tran-05);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
 }
 
-.line{
-    width: 200px;
-    height: 4px;
+.footer a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--tran-02);
+}
+
+.footer a:hover {
+    text-decoration: underline;
+    opacity: 0.8;
+}
+
+/* Dark mode footer */
+body.dark .footer {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+body.dark .footer a {
+    color: var(--text-color);
+}
+
+.activitiesbuttons{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 35px;
+    background-color: rgba(0, 0, 0, 0);
+    font-weight: 500;
+    height: 110px;
+    margin-left: 250px;
+    gap: 20px;
+    }
+
+.activitiesbutton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--sidebar-color);
+    width: 120px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    height: 40px;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.submissionsbutton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--sidebar-color);
+    width: 120px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    height: 40px;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.calendarbutton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: var(--pageheader-color);
-    border: none;
-    border-radius: 5px;
-    position: absolute;
-    bottom: -2px;
+    width: 120px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    height: 40px;
+    color: var(--body-color);
+    cursor: pointer;
 }
 
-.linethingy{
-    width: 100%;
-    display: flex;
-    justify-content: center;
+.submissionsbutton:hover, .activitiesbutton:hover{
+    background-color: var(--pageheader-color);
+    color: var(--body-color);
+    transition: var(--tran-05);
 }
 
-.pageheader{
-    font-weight: 600;
-    color: var(--pageheader-color);
-    position: absolute;
-    top: 22px;
-}
-
-.centereditems{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-</style>
+    </style>
 </head>
 <body>
-    <nav class="sidebar">
+<nav class="sidebar">
         <header>
             <div class="image-text">
                 <span class="image">
                     <img src="LOGO.png" alt="logo">
                 </span>
-
                 <div class="text header-text">
                     <span class="name">O.B. Montessori</span>
                     <span class="profession">Student Portal</span>
                 </div>
             </div>
-            <i class="bx bx-chevron-right toggle"></i>
+            <i class="bx bx-chevron-left toggle"></i>
         </header>
+
         <div class="menu-bar">
             <div class="menu">
                 <div class="search-box">
                     <i class="bx bx-search"></i>
                     <input type="search" placeholder="Search...">
                 </div>
-
                 <ul class="menu-links">
                     <li class="nav-link">
                         <a href="dashboard.html">
@@ -435,9 +660,9 @@ body.dark .switch::before{
                         </a>
                     </li>
                     <li class="nav-link">
-                        <a href="documents.html">
+                        <a href="tasks.html">
                             <i class="bx bx-folder icon"></i>
-                            <span class="text nav-text">Documents</span>
+                            <span class="text nav-text">Activities</span>
                         </a>
                     </li>
                     <li class="nav-link">
@@ -447,7 +672,7 @@ body.dark .switch::before{
                         </a>
                     </li>
                     <li class="nav-link">
-                        <a href="performance.html">
+                        <a href="">
                             <i class="bx bx-trending-up icon"></i>
                             <span class="text nav-text">Performance</span>
                         </a>
@@ -477,7 +702,7 @@ body.dark .switch::before{
     </nav>
 
     <div class="calendarbox">
-        <div class="centereditems"></div>
+        <div class="centereditems">
             <p class="pageheader">Calendar</p>
             <div class="linethingy">
                 <hr class="line">
@@ -485,35 +710,176 @@ body.dark .switch::before{
         </div>
     </div>
 
+    <div class="activitiesbuttons">
+        <div class="activitiesbutton">
+            <p><a href="tasks.html" style="color: inherit; text-decoration: none;">Activities</a></p>
+        </div>
+        <div class="submissionsbutton">
+            <p><a href="tasks2.html" style="color: inherit; text-decoration: none;">Submissions</a></p>
+        </div>
+        <div class="calendarbutton">
+            <p><a href="calendar.html" style="color: inherit; text-decoration: none;">Calendar</a></p>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="calendar-wrapper">
+            <div class="calendar-card">
+                <div class="cal-nav">
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <h2 class="cal-nav-title" id="calTitle"></h2>
+                        <button class="today-btn" id="todayBtn">Today</button>
+                    </div>
+                    <div class="cal-nav-btns">
+                        <button class="cal-nav-btn" id="prevBtn"><i class="bx bx-chevron-left"></i></button>
+                        <button class="cal-nav-btn" id="nextBtn"><i class="bx bx-chevron-right"></i></button>
+                    </div>
+                </div>
+                <div class="cal-day-labels">
+                    <div class="cal-day-label">Sun</div>
+                    <div class="cal-day-label">Mon</div>
+                    <div class="cal-day-label">Tue</div>
+                    <div class="cal-day-label">Wed</div>
+                    <div class="cal-day-label">Thu</div>
+                    <div class="cal-day-label">Fri</div>
+                    <div class="cal-day-label">Sat</div>
+                </div>
+                <div class="cal-grid" id="calGrid"></div>
+            </div>
+        </div>
+    </div>
+<br>
+<footer class="footer">
+    Mica Frigillana | Khloe Sunga | Zahra Urquico | Grade 9 - Ruby | Powered by <a href="https://github.com" target="_blank" style="color:#60A5FA; text-decoration:none;">
+    GitHub
+    </a>
+</footer>
+
 <script>
     const body = document.querySelector("body");
     const sidebar = document.querySelector(".sidebar");
     const toggle = document.querySelector(".toggle");
-    const searchBtn = document.querySelector(".bx-search");
     const modeSwitch = document.querySelector(".toggle-switch");
     const modeText = document.querySelector(".mode-text");
+    const dashboardBox = document.querySelector(".calendarbox");
+    const mainContent = document.querySelector(".main-content");
+    const footer = document.querySelector(".footer");
+
+    // Apply saved dark mode on page load
+    if (localStorage.getItem("darkMode") === "enabled") {
+        body.classList.add("dark");
+        modeText.innerText = "Light Mode";
+    }
 
     toggle.addEventListener("click", () => {
-    sidebar.classList.toggle("close");
-
-    if (sidebar.classList.contains("close")) {
-        document.querySelector(".calendarbox").style.marginLeft = "88px";
-    }
-     else {
-        document.querySelector(".calendarbox").style.marginLeft = "250px";
-    }
+        sidebar.classList.toggle("close");
+        const collapsed = sidebar.classList.contains("close");
+        const ml = collapsed ? "88px" : "250px";
+        dashboardBox.style.marginLeft = ml;
+        mainContent.style.marginLeft = ml;
+        footer.style.marginLeft = ml;
     });
 
     modeSwitch.addEventListener("click", () => {
         body.classList.toggle("dark");
-
         if (body.classList.contains("dark")) {
             modeText.innerText = "Light Mode";
+            localStorage.setItem("darkMode", "enabled");
         } else {
             modeText.innerText = "Dark Mode";
+            localStorage.setItem("darkMode", "disabled");
         }
     });
 
+    document.querySelectorAll('.sidebar li a').forEach(link => {
+        if (link.href === location.href) link.classList.add('active-link');
+    });
+
+    const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+    let currentDate = new Date();
+    let viewYear = currentDate.getFullYear();
+    let viewMonth = currentDate.getMonth();
+    let selectedDate = null;
+
+    function renderCalendar() {
+        const grid = document.getElementById('calGrid');
+        const title = document.getElementById('calTitle');
+        grid.innerHTML = '';
+        title.textContent = `${MONTHS[viewMonth]} ${viewYear}`;
+
+        const firstDay = new Date(viewYear, viewMonth, 1).getDay();
+        const daysInMonth = new Date(viewYear, viewMonth+1, 0).getDate();
+        const daysInPrev = new Date(viewYear, viewMonth, 0).getDate();
+
+        const todayStr = toDateStr(currentDate);
+
+        for (let i = firstDay - 1; i >= 0; i--) {
+            const d = daysInPrev - i;
+            const cell = makeCell(viewYear, viewMonth - 1, d, true, todayStr);
+            grid.appendChild(cell);
+        }
+
+        for (let d = 1; d <= daysInMonth; d++) {
+            const cell = makeCell(viewYear, viewMonth, d, false, todayStr);
+            grid.appendChild(cell);
+        }
+
+        const total = grid.children.length;
+        const remaining = total % 7 === 0 ? 0 : 7 - (total % 7);
+        for (let d = 1; d <= remaining; d++) {
+            const cell = makeCell(viewYear, viewMonth + 1, d, true, todayStr);
+            grid.appendChild(cell);
+        }
+    }
+
+    function toDateStr(date) {
+        return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+    }
+
+    function makeCell(y, m, d, otherMonth, todayStr) {
+
+        const realDate = new Date(y, m, d);
+        const dateStr = toDateStr(realDate);
+
+        const cell = document.createElement('div');
+        cell.className = 'cal-day' + (otherMonth ? ' other-month' : '');
+        if (dateStr === todayStr) cell.classList.add('today');
+        if (selectedDate === dateStr) cell.classList.add('selected');
+        cell.dataset.date = dateStr;
+
+        const numDiv = document.createElement('div');
+        numDiv.className = 'day-num';
+        numDiv.textContent = d;
+        cell.appendChild(numDiv);
+
+        cell.addEventListener('click', () => selectDate(dateStr));
+        return cell;
+    }
+
+    function selectDate(dateStr) {
+        selectedDate = dateStr;
+        renderCalendar();
+    }
+
+
+    document.getElementById('prevBtn').addEventListener('click', () => {
+        viewMonth--;
+        if (viewMonth < 0) { viewMonth = 11; viewYear--; }
+        renderCalendar();
+    });
+    document.getElementById('nextBtn').addEventListener('click', () => {
+        viewMonth++;
+        if (viewMonth > 11) { viewMonth = 0; viewYear++; }
+        renderCalendar();
+    });
+    document.getElementById('todayBtn').addEventListener('click', () => {
+        viewYear = currentDate.getFullYear();
+        viewMonth = currentDate.getMonth();
+        selectDate(toDateStr(currentDate));
+    });
+
+    renderCalendar();
 </script>
 </body>
 </html>
